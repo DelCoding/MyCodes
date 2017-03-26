@@ -1,0 +1,162 @@
+#include <iostream>
+#include <string>
+#define MAXSIZE 50
+using namespace std;
+
+struct Stack
+{
+	char *ch;
+	int top;
+};
+
+void InitStack(Stack &p)
+{
+	p.ch = new char[MAXSIZE];
+	if (!p.ch)
+	{
+		return;
+	}
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		p.ch[i] = '\0';
+	}
+	p.top = 0;
+}
+
+void PushStack(Stack &p, char e) 
+{
+	if (p.top >= MAXSIZE)
+	{
+		return;
+	}
+	p.ch[p.top] = e;
+	p.top++;
+}
+
+void PopStack(Stack &p, char &e)
+{
+	if (p.top == 0)
+	{
+		return;
+	}
+	e = p.ch[p.top-1];
+	p.top--;
+}
+
+void getTop(Stack p, char &e)
+{
+	if (p.top == 0)
+	{
+		e = '@';
+		return;
+	}
+	e = p.ch[p.top-1];
+}
+
+bool isEmpty(Stack p) 
+{
+	if (p.top > 0)
+	{
+		return false;
+	}
+	return true;
+}
+
+
+void toSuff(char *p) 
+{
+	Stack chS, numS;
+	InitStack(chS);
+	InitStack(numS);
+	for (int i = 0; i < strlen(p); i++)
+	{
+		if (p[i] >= '0' && p[i] <= '9')
+		{
+			PushStack(numS, p[i]);
+			continue;
+		}
+		else 
+		{
+			if (p[i] == '(')
+			{
+				PushStack(chS, p[i]);
+				continue;
+			}
+
+			if (p[i] == ')')
+			{
+				char temp;
+				for (int j = 0; j < chS.top; j++)
+				{
+					getTop(chS, temp);
+					if (temp != '(')
+					{
+						char t;
+						PopStack(chS, t);
+						PushStack(numS, t);
+					}
+					else
+					{
+						char t;
+						PopStack(chS, t);
+						break;
+					}
+				}
+				continue;
+			}
+
+			char s;
+			getTop(chS, s);
+			if (s == '@' || s == '(')//插入第一个
+			{
+				PushStack(chS, p[i]);
+				continue;
+			}
+			if (s == '+' || s == '-')
+			{
+				PushStack(chS, p[i]);
+				continue;
+			}
+
+			if ((s == '*' || s == '/' ) && (p[i] == '-' || p[i] == '+'))
+			{
+				char temp;
+				//这里要先将chS的个数保存起来，不然进入下面循环时删掉了元素导致chS.top也变小了
+				//导致循环提早结束，不能把chS中的元素全部取出来
+				int num = chS.top;
+				for (int j = 0; j < num; j++)
+				{
+					getTop(chS, temp);
+					if (temp == '(')
+					{
+						break;
+					}
+					PopStack(chS, temp);
+
+					PushStack(numS, temp);
+				}
+				PushStack(chS, p[i]);
+			}
+
+		}
+	}
+	//清空chS
+	for (int i = 0; i <= chS.top; i++)
+	{
+		char t;
+		PopStack(chS, t);
+		PushStack(numS, t);
+	}
+	cout << "后缀表达式为：" << numS.ch;
+}
+
+int main() 
+{
+	cout << "请输入表达式：";
+	char str[55] = {0};
+	cin >> str;
+	toSuff(str);
+
+
+	return 0;
+}
