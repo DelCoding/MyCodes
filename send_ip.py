@@ -38,7 +38,7 @@ def send_email(SMTP_host, from_account, from_passwd, to_account, subject, conten
 ip = get_ip_address('ens3')
 from_addr = "from_email"	#发送人的邮箱
 password = ""	#发送人邮箱的密码
-to_addr = "1044987878@qq.com"	#接收人邮箱
+to_addr = ""	#接收人邮箱
 smtp_server = "smtp.sina.com"	#发送人的smtp服务器
 
 #ip = 'hello,this is a test'
