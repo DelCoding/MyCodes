@@ -1,7 +1,7 @@
 # MyCodes
 
 ## 介绍
-&emsp;本项目记录各种代码
+&emsp;本项目记录各种代码及小tips。
 
 ## 代码记录
  
@@ -10,3 +10,4 @@
  * **3、Java多线程多人聊天室**
      * **MulitServer.java是服务器版**
      * **Mulitclient.java是客户端**
+ * **4、idea下使用JavaBean**
