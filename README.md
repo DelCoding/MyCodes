@@ -12,3 +12,4 @@
      * **<a href="https://github.com/DelCoding/MyCodes/blob/master/MulitClient.java">Mulitclient.java是客户端</a>**
  * **<a href="https://github.com/DelCoding/MyCodes/blob/master/idea%E4%B8%8B%E4%BD%BF%E7%94%A8JavaBean.md">4、idea下使用JavaBean</a>**
  * **<a href="https://github.com/DelCoding/MyCodes/blob/master/bank.py">5、银行家算法</a>**
+ * **<a href="https://github.com/DelCoding/MyCodes/blob/master/checksum.py">6、计算一个文件的16位校验和算法</a>**
